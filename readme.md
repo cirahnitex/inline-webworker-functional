@@ -5,7 +5,7 @@ Execute your function asynchronously in a separate thread by creating inline web
 Call your functions asynchronously, without worrying anything about the underlying web worker API at all, like creating separate JS file, postmessage, onmessage etc.
 
 ## Installation
-### webpack
+### Webpack
 install from NPM
 ```
 npm install inline-webworker-functional
@@ -14,8 +14,10 @@ import to your JS file
 ```javascript
 const {makeSimpleWebWorker, makeBatchedWebWorkers} = require("inline-webworker-functional")
 ```
-### browser
-to be released
+### Browser
+```html
+<script src="https://unpkg.com/inline-webworker-functional/dist/browserlib.js"></script>
+```
 
 ## Usage
 
