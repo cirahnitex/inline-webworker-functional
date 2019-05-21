@@ -1,0 +1,12 @@
+declare type FuncBase = (...args: any) => any;
+declare type Promisified<Func extends FuncBase> = (...args: Parameters<Func>) => Promise<ReturnType<Func>>;
+export declare function makeSimpleWebWorker<Func extends FuncBase>(fn: Func): Promisified<Func>;
+export declare function makeBatchedWebWorkers<F0 extends FuncBase>(factory: () => [F0]): [Promisified<F0>];
+export declare function makeBatchedWebWorkers<F0 extends FuncBase, F1 extends FuncBase>(factory: () => [F0, F1]): [Promisified<F0>, Promisified<F1>];
+export declare function makeBatchedWebWorkers<F0 extends FuncBase, F1 extends FuncBase, F2 extends FuncBase>(factory: () => [F0, F1, F2]): [Promisified<F0>, Promisified<F1>, Promisified<F2>];
+export declare function makeBatchedWebWorkers<F0 extends FuncBase, F1 extends FuncBase, F2 extends FuncBase, F3 extends FuncBase>(factory: () => [F0, F1, F2, F3]): [Promisified<F0>, Promisified<F1>, Promisified<F2>, Promisified<F3>];
+export declare function makeBatchedWebWorkers<F0 extends FuncBase, F1 extends FuncBase, F2 extends FuncBase, F3 extends FuncBase, F4 extends FuncBase>(factory: () => [F0, F1, F2, F3, F4]): [Promisified<F0>, Promisified<F1>, Promisified<F2>, Promisified<F3>, Promisified<F4>];
+export declare function makeBatchedWebWorkers<F0 extends FuncBase, F1 extends FuncBase, F2 extends FuncBase, F3 extends FuncBase, F4 extends FuncBase, F5 extends FuncBase>(factory: () => [F0, F1, F2, F3, F4, F5]): [Promisified<F0>, Promisified<F1>, Promisified<F2>, Promisified<F3>, Promisified<F4>, Promisified<F5>];
+export declare function makeBatchedWebWorkers<F0 extends FuncBase, F1 extends FuncBase, F2 extends FuncBase, F3 extends FuncBase, F4 extends FuncBase, F5 extends FuncBase, F6 extends FuncBase>(factory: () => [F0, F1, F2, F3, F4, F5, F6]): [Promisified<F0>, Promisified<F1>, Promisified<F2>, Promisified<F3>, Promisified<F4>, Promisified<F5>, Promisified<F6>];
+export declare function makeBatchedWebWorkers<F0 extends FuncBase, F1 extends FuncBase, F2 extends FuncBase, F3 extends FuncBase, F4 extends FuncBase, F5 extends FuncBase, F6 extends FuncBase, F7 extends FuncBase>(factory: () => [F0, F1, F2, F3, F4, F5, F6, F7]): [Promisified<F0>, Promisified<F1>, Promisified<F2>, Promisified<F3>, Promisified<F4>, Promisified<F5>, Promisified<F6>, Promisified<F7>];
+export {};
