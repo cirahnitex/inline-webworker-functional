@@ -10,9 +10,9 @@ onmessage = function(e){
 };`
         ]);
 
-        var blobURL = window.URL.createObjectURL(blob);
+        const blobURL = window.URL.createObjectURL(blob);
 
-        var worker = new Worker(blobURL);
+        const worker = new Worker(blobURL);
         worker.onmessage = function(e) {
             resolve(e.data);
         };
@@ -68,9 +68,9 @@ onmessage = function(e) {
 };`
     ]);
 
-    var blobURL = window.URL.createObjectURL(blob);
+    const blobURL = window.URL.createObjectURL(blob);
 
-    var worker = new Worker(blobURL);
+    const worker = new Worker(blobURL);
 
     let nextId = 0;
     return factory().map((_, index)=>(...args:any[])=>new Promise((resolve, reject)=>{
