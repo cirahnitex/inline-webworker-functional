@@ -1,25 +1,37 @@
 type FuncBase = (...args:any)=>any;
 type Promisified<Func extends FuncBase> = (...args:Parameters<Func>)=>Promise<ReturnType<Func>>;
 export function makeSimpleWebWorker<Func extends FuncBase>(fn:Func):Promisified<Func> {
-    return (...args:any[])=>new Promise((resolve, reject)=>{
-        const blob = new Blob([
-            `
+    const blob = new Blob([
+        `
 var _main = (${fn.toString()});
 onmessage = function(e){
-    postMessage(_main.apply(null, e.data));
+    try {
+        postMessage({id: e.data.id, value:_main.apply(null, e.data.args)});
+    }
+    catch(e) {
+        postMessage({id: e.data.id, error: err.message});
+    }
 };`
-        ]);
+    ]);
 
-        const blobURL = window.URL.createObjectURL(blob);
+    const blobURL = window.URL.createObjectURL(blob);
 
-        const worker = new Worker(blobURL);
-        worker.onmessage = function(e) {
-            resolve(e.data);
-        };
-        worker.onerror = function(e) {
-            reject(e);
-        };
-        worker.postMessage(args); // Start the worker.
+    const worker = new Worker(blobURL);
+    let nextId = 0;
+
+    return (...args:any[])=>new Promise((resolve, reject)=>{
+        const id = nextId++;
+        function handleMessage(e:MessageEvent) {
+            if(e.data.id !== id) return;
+            worker.removeEventListener("message", handleMessage);
+            if(e.data.error) {
+                reject(new Error(e.data.error));
+                return;
+            }
+            resolve(e.data.value);
+        }
+        worker.addEventListener("message", handleMessage);
+        worker.postMessage(id, args);
     })
 
 }
@@ -71,22 +83,22 @@ onmessage = function(e) {
     const blobURL = window.URL.createObjectURL(blob);
 
     const worker = new Worker(blobURL);
-
     let nextId = 0;
-    return factory().map((_, index)=>(...args:any[])=>new Promise((resolve, reject)=>{
+
+    return Array.from(Array(16).keys()).map(index=>(...args:any[])=>new Promise((resolve, reject)=>{
         const id = nextId++;
         function handleMessage(e:MessageEvent) {
             if(e.data.id !== id) return;
+            worker.removeEventListener("message", handleMessage);
             if(e.data.error) {
                 reject(new Error(e.data.error));
                 return;
             }
             resolve(e.data.value);
-            worker.removeEventListener("message", handleMessage);
         }
 
         worker.addEventListener("message", handleMessage);
 
-        worker.postMessage({id, index, args}); // Start the worker.
+        worker.postMessage({id, index, args});
     }));
 }
