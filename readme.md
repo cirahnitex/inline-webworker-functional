@@ -39,7 +39,7 @@ const lotsOfWorkAsync = makeSimpleWebWorker(lotsOfWork);
 lotsOfWorkAsync(1e4, 1e4).then(result => console.log(result)); // prints 489326364.2720191
 ```
 
-Due the to the limitation of web worker, the function to convert must be completely self-contained, without any reference to external variables/functions/classes. If your function to convert requires other helper functions/classes as subroutine, please inline those dependencies into your function, like this:
+Due the to the limitation of web worker, the job function (the function to convert) must be completely self-contained, without any reference to external variables/functions/classes. If your job function requires other helper functions/classes as subroutines, please inline those dependencies into your function, like this:
 ```javascript
 function complexWork(x) {
     class Circle {
@@ -59,7 +59,7 @@ complexWorkAsync(2).then(result => console.log(result)); // prints 12.5663706143
 ```
 
 ### Advanced usage
-If you want to make multiple related functions asynchronous together, the batched API can be used. This is extremely useful when those functions have some shared variables.
+If you want to convert multiple related job functions together, the batched API can be used. This is extremely useful when those job functions share some variables.
 ```javascript
 function batchedWorkerJobs() {
 
@@ -87,7 +87,7 @@ const [saveAsync, withdrawAsync] = makeBatchedWebWorkers(batchedWorkerJobs);
 ```
 
 #### Note for Typescript users
-Due to the type widening feature for function return types, the return type of the job function need to be explicitly specified as tuple when using Batched API.
+Due to the type widening feature in Typescript, the return type of the job function need to be explicitly declared as tuple when using Batched API.
 ```typescript
 function batchedWorkerJobs() {
 
