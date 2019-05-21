@@ -59,7 +59,7 @@ complexWorkAsync(2).then(result => console.log(result)); // prints 12.5663706143
 ```
 
 ### Advanced usage
-If you want to convert multiple related job functions together, the batched API can be used. This is extremely useful when those job functions share some variables.
+If you want to convert multiple related job functions that share some variables, the batched API can be called. As opposed to calling the basic API with your job function, you should call the batched API with a job function factory (a function that returns some job functions) instead.
 ```javascript
 function batchedWorkerJobs() {
 
@@ -87,7 +87,7 @@ const [saveAsync, withdrawAsync] = makeBatchedWebWorkers(batchedWorkerJobs);
 ```
 
 #### Note for Typescript users
-Due to the type widening feature in Typescript, the return type of the job function need to be explicitly declared as tuple when using Batched API.
+Due to the type widening feature in Typescript, the return type of the job function factory need to be explicitly declared as tuple when using Batched API.
 ```typescript
 function batchedWorkerJobs() {
 
