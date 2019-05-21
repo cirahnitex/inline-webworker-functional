@@ -25,7 +25,7 @@ function makeSimpleWebWorker(fn) {
                 resolve(e.data.value);
             }
             worker.addEventListener("message", handleMessage);
-            worker.postMessage(id, args);
+            worker.postMessage({ id: id, args: args });
         });
     };
 }

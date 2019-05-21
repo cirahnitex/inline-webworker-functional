@@ -31,7 +31,7 @@ onmessage = function(e){
             resolve(e.data.value);
         }
         worker.addEventListener("message", handleMessage);
-        worker.postMessage(id, args);
+        worker.postMessage({id, args});
     })
 
 }

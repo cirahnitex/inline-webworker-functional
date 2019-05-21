@@ -1,6 +1,6 @@
 {
   "name": "inline-webworker-functional",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "execute your function asynchronously in a separate thread by creating inline web workers",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
