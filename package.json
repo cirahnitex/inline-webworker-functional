@@ -1,9 +1,9 @@
 {
   "name": "inline-webworker-functional",
-  "version": "1.0.4",
-  "description": "execute your function asynchronously in a separate thread by creating inline web workers",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "version": "2.0.0",
+  "description": "execute your time consuming function asynchronously in the background",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,12 +12,18 @@
     "url": "git+https://github.com/cirahnitex/inline-webworker-functional.git"
   },
   "keywords": [
-    "web",
-    "worker"
+    "worker",
+    "thread",
+    "async",
+    "parallel"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "callsite": "^1.0.0"
+  },
   "devDependencies": {
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "@types/node": "^12.0.10",
+    "@types/callsite": "^1.0.30"
   },
   "author": "YAN Yuchen",
   "license": "ISC",
